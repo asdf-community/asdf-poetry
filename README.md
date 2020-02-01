@@ -15,7 +15,7 @@ brew install curl jq asdf
 
 ## Install
 
-With [asdf] already installed:
+With [asdf](https://asdf-vm.com/) already installed:
 
 ```
 asdf plugin-add poetry git@github.com:crflynn/asdf-poetry.git
