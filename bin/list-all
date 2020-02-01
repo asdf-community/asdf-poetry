@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo $(curl -s https://pypi.org/pypi/poetry/json | jq '.releases' | jq 'keys[]') | tr -d \" | tr "\n" " "

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -e
+
+POETRY_HOME=$ASDF_INSTALL_PATH
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - --version $ASDF_INSTALL_VERSION
