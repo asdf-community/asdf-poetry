@@ -9,7 +9,12 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+
     steps:
+
+      - name: asdf_install
+        uses: asdf-vm/actions/install@v1.0.0
+
       - name: asdf_plugin_test
         uses: asdf-vm/actions/plugin-test@v1.0.0
         with:
