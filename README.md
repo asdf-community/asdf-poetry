@@ -1,6 +1,6 @@
 # asdf-poetry
 
-[![githubactions](https://github.com/crflynn/asdf-poetry/workflows/asdf/badge.svg)](https://github.com/crflynn/asdf-poetry/actions)
+[![githubactions](https://github.com/crflynn/asdf-poetry/workflows/build/badge.svg)](https://github.com/crflynn/asdf-poetry/actions)
 
 Poetry plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 
