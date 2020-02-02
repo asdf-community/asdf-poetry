@@ -7,10 +7,9 @@ Poetry plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 ## Requirements
 
 * [curl](https://curl.haxx.se/)
-* [jq](https://stedolan.github.io/jq/)
 
 ```bash
-brew install curl jq asdf
+brew install curl asdf
 ```
 
 The installation also relies on some version of `python` already installed.
@@ -20,7 +19,7 @@ The installation also relies on some version of `python` already installed.
 With [asdf](https://asdf-vm.com/) already installed:
 
 ```
-asdf plugin-add poetry git@github.com:crflynn/asdf-poetry.git
+asdf plugin-add poetry https://github.com/crflynn/asdf-poetry.git
 ```
 
 ## Use

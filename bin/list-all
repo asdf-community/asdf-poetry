@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
 
-set -e
+set -eo pipefail
 
-echo $(curl -s https://pypi.org/pypi/poetry/json | jq '.releases' | jq 'keys[]') | tr -d \" | tr "\n" " "
+cmd="curl --silent --location"
+releases_path="https://api.github.com/repos/python-poetry/poetry/releases"
+
+if [ -n "$GITHUB_API_TOKEN" ]; then
+  cmd="$cmd --header 'Authorization: token $GITHUB_API_TOKEN'"
+fi
+
+sort_versions() {
+  sed 'h; s/[+-]/./g; s/.p\([[:digit:]]\)/.z\1/; s/$/.z/; G; s/\n/ /' |
+    LC_ALL=C sort -t. -k 1,1 -k 2,2n -k 3,3n -k 4,4n -k 5,5n | awk '{print $2}'
+}
+
+versions=$(eval "$cmd $releases_path" | grep 'tag_name' | sed -e 's/.* "//;s/",//' | sort_versions | xargs)
+
+echo "$versions"
