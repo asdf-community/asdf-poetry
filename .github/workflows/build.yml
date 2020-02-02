@@ -1,4 +1,4 @@
-name: asdf
+name: build
 on:
   push:
     branches:
