@@ -2,4 +2,4 @@
 
 set -e
 
-echo $(curl -s https://pypi.org/pypi/poetry/json | jq '.releases' | jq 'keys[]') | tr -d \" | tr "\n" " "
+echo $(curl -s https://pypi.org/pypi/poetry/json | python -c 'from __future__ import print_function;import json,sys;response=json.load(sys.stdin);print(" ".join(list(response["releases"].keys())))')
