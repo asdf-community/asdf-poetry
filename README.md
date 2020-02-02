@@ -13,6 +13,8 @@ Poetry plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 brew install curl jq asdf
 ```
 
+The installation also relies on some version of `python` already installed.
+
 ## Install
 
 With [asdf](https://asdf-vm.com/) already installed:
