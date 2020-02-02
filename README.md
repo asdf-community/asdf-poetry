@@ -9,7 +9,7 @@ Poetry plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 * [curl](https://curl.haxx.se/)
 
 ```bash
-brew install curl jq asdf
+brew install curl asdf
 ```
 
 The installation also relies on some version of `python` already installed.
