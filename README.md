@@ -2,7 +2,7 @@
 
 [![githubactions](https://github.com/crflynn/asdf-poetry/workflows/build/badge.svg)](https://github.com/crflynn/asdf-poetry/actions)
 
-Poetry plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
+[Poetry](https://github.com/python-poetry/poetry) plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 
 ## Requirements
 
