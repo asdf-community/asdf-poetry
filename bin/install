@@ -2,4 +2,4 @@
 
 set -e
 
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=$ASDF_INSTALL_PATH python - --version $ASDF_INSTALL_VERSION
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=$ASDF_INSTALL_PATH python - --version $ASDF_INSTALL_VERSION --no-modify-path
