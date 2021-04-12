@@ -1,5 +1,29 @@
 #!/usr/bin/env bash
 
-set -e
+set -Eeuo pipefail
 
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=$ASDF_INSTALL_PATH python - --version $ASDF_INSTALL_VERSION --no-modify-path
+trap cleanup SIGINT SIGTERM ERR
+
+cleanup() {
+  trap - SIGINT SIGTERM ERR
+  rm -rf "$ASDF_INSTALL_PATH"
+  echo
+  echo "Cleanup: Something went wrong!"
+  echo
+  echo "$(caller): ${BASH_COMMAND}"
+}
+
+install_poetry() {
+  local install_type=$1
+  local version=$2
+  local install_path=$3
+
+  if [ "$install_type" != "version" ]; then
+    fail "asdf-poetry supports release installs only"
+  fi
+
+  curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py |
+    POETRY_HOME=$install_path python - --version "$version" --no-modify-path
+}
+
+install_poetry "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
