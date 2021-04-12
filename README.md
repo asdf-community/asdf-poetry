@@ -1,49 +1,24 @@
 # asdf-poetry
 
-[![githubactions](https://github.com/crflynn/asdf-poetry/workflows/build/badge.svg)](https://github.com/crflynn/asdf-poetry/actions)
+[Poetry](https://github.com/python-poetry/poetry) plugin for asdf version
+manager
 
-[Poetry](https://github.com/python-poetry/poetry) plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
+## Build History
 
-## Requirements
+[![Build history](https://buildstats.info/github/chart/asdf-community/asdf-poetry?branch=master)](https://github.com/asdf-community/asdf-poetry/actions)
 
-* [curl](https://curl.haxx.se/)
-
-```bash
-brew install curl asdf
-```
-
-The installation also relies on some version of `python` already installed.
-
-## Install
-
-With [asdf](https://asdf-vm.com/) already installed:
-
-```
-asdf plugin-add poetry https://github.com/crflynn/asdf-poetry.git
-```
-
-## Use
-
-To list all versions
+## Installation
 
 ```bash
-asdf list-all poetry
+asdf plugin-add poetry https://github.com/asdf-community/asdf-poetry.git
 ```
 
-To install a specific version of poetry
+## Usage
 
-```bash
-asdf install poetry 1.0.3
-```
+Check [asdf](https://github.com/asdf-vm/asdf) readme for instructions on how to
+install & manage versions.
 
-To uninstall a specific version of poetry
+## License
 
-```bash
-asdf uninstall poetry 1.0.3
-```
-
-To set a project-specific version of poetry
-
-```bash
-asdf local poetry 1.0.3
-```
+Licensed under the
+[MIT license](https://github.com/asdf-community/asdf-poetry/blob/master/LICENSE).
