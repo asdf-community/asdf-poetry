@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+export POETRY_CACHE_DIR=$ASDF_INSTALL_PATH/cache
