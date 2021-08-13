@@ -8,12 +8,12 @@
 
 @test "install works on version before 1.2" {
   run asdf install poetry 1.1.7
-  [ "$status" -eq 1 ]
+  [ "$status" -eq 0 ]
   echo "$output" | grep "This installer is deprecated"
 }
 
 @test "install works on version after 1.2" {
   run asdf install poetry 1.2.0a1
-  [ "$status" -eq 1 ]
+  [ "$status" -eq 0 ]
   echo "$output" | grep -v "This installer is deprecated"
 }
