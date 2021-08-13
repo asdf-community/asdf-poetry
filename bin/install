@@ -33,13 +33,13 @@ install_poetry() {
 
   semver_ge "$ASDF_INSTALL_VERSION" 1.2.0 && vercomp="ge" || vercomp="lt"
 
-  install_url="https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py"
-
   if [ $vercomp == "ge" ]; then
     install_url="https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py"
+    curl -sSL "$install_url" | POETRY_HOME=$install_path python3 - --version "$version"
+  else
+    install_url="https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py"
+    curl -sSL "$install_url" | POETRY_HOME=$install_path python3 - --version "$version" --no-modify-path
   fi
-
-  curl -sSL "$install_url" | POETRY_HOME=$install_path python3 - --version "$version"
 }
 
 install_poetry "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
