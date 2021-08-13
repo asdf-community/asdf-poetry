@@ -13,8 +13,7 @@ cleanup() {
   echo "$(caller): ${BASH_COMMAND}"
 }
 
-semver_ge()
-{
+semver_ge() {
   printf '%s\n%s\n' "$2" "$1" | sort --check=quiet --version-sort
 }
 
