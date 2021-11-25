@@ -31,7 +31,7 @@ install_poetry() {
     fail "asdf-poetry supports release installs only"
   fi
 
-  semver_ge "$ASDF_INSTALL_VERSION" 1.1.7 && vercomp="ge" || vercomp="lt"
+  semver_ge "$ASDF_INSTALL_VERSION" 1.1.9 && vercomp="ge" || vercomp="lt"
 
   if [ $vercomp == "ge" ]; then
     install_url="https://install.python-poetry.org"
