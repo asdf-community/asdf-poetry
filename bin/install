@@ -21,6 +21,7 @@ install_poetry() {
   local install_type=$1
   local version=$2
   local install_path=$3
+  local flags=
 
   # Ensure the installer will work even if the user has the
   # PIP_REQUIRE_VIRTUALENV variable set. Can be removed after this issue is
@@ -33,13 +34,19 @@ install_poetry() {
 
   semver_ge "$ASDF_INSTALL_VERSION" 1.2.0 && vercomp="ge" || vercomp="lt"
 
-  if [ $vercomp == "ge" ]; then
+  if [[ -n ${ASDF_POETRY_INSTALL_URL:-} ]]; then
+    install_url=$ASDF_POETRY_INSTALL_URL
+  elif [ $vercomp == "ge" ]; then
     install_url="https://install.python-poetry.org"
-    curl -sSL "$install_url" | POETRY_HOME=$install_path python3 - --version "$version"
   else
     install_url="https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py"
-    curl -sSL "$install_url" | POETRY_HOME=$install_path python3 - --version "$version" --no-modify-path
   fi
+
+  if [[ $install_url == *get-poetry* ]]; then
+    flags=--no-modify-path
+  fi
+
+  curl -sSL "$install_url" | POETRY_HOME=$install_path python3 - --version "$version" $flags
 }
 
 install_poetry "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
