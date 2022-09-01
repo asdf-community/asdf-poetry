@@ -47,6 +47,10 @@ install_poetry() {
   fi
 
   curl -sSL "$install_url" | POETRY_HOME=$install_path python3 - --version "$version" $flags
+
+  if [ $vercomp == "ge" ]; then
+    poetry config virtualenvs.prefer-active-python true
+  fi
 }
 
 install_poetry "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
