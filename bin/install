@@ -23,11 +23,6 @@ install_poetry() {
   local install_path=$3
   local flags=
 
-  # Ensure the installer will work even if the user has the
-  # PIP_REQUIRE_VIRTUALENV variable set. Can be removed after this issue is
-  # resolved: https://github.com/python-poetry/poetry/issues/4089
-  unset PIP_REQUIRE_VIRTUALENV
-
   if [ "$install_type" == "version" ]; then
     semver_ge "$ASDF_INSTALL_VERSION" 1.1.7 && install_vercomp="ge" || install_vercomp="lt"
     semver_ge "$ASDF_INSTALL_VERSION" 1.2.0 && config_vercomp="ge" || config_vercomp="lt"
