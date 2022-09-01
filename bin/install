@@ -54,6 +54,10 @@ install_poetry() {
     echo Running: \"poetry config virtualenvs.prefer-active-python true\".
     echo ""
     "$install_path"/bin/poetry config virtualenvs.prefer-active-python true
+  else
+    echo Warning: Poetry versions prior to 1.2.0 may not work properly with asdf.
+    echo Consider upgrading to a later version.
+    echo https://github.com/asdf-community/asdf-poetry/issues/10
   fi
 }
 
