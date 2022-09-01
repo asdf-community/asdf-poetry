@@ -32,11 +32,9 @@ install_poetry() {
     fail "asdf-poetry supports release installs only"
   fi
 
-  semver_ge "$ASDF_INSTALL_VERSION" 1.2.0 && vercomp="ge" || vercomp="lt"
-
   if [[ -n ${ASDF_POETRY_INSTALL_URL:-} ]]; then
     install_url=$ASDF_POETRY_INSTALL_URL
-  elif [ $vercomp == "ge" ]; then
+  elif semver_ge "$ASDF_INSTALL_VERSION" 1.1.7; then
     install_url="https://install.python-poetry.org"
   else
     install_url="https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py"
@@ -48,7 +46,7 @@ install_poetry() {
 
   curl -sSL "$install_url" | POETRY_HOME=$install_path python3 - --version "$version" $flags
 
-  if [ $vercomp == "ge" ]; then
+  if semver_ge "$ASDF_INSTALL_VERSION" 1.2.0; then
     # Ensure that poetry behaves as expected with asdf python (pyenv)
     echo Configuring poetry to behave properly with asdf ...
     echo Running: \"poetry config virtualenvs.prefer-active-python true\".
