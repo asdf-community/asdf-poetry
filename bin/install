@@ -28,13 +28,17 @@ install_poetry() {
   # resolved: https://github.com/python-poetry/poetry/issues/4089
   unset PIP_REQUIRE_VIRTUALENV
 
-  if [ "$install_type" != "version" ]; then
-    fail "asdf-poetry supports release installs only"
+  if [ "$install_type" == "version" ]; then
+    semver_ge "$ASDF_INSTALL_VERSION" 1.1.7 && install_vercomp="ge" || install_vercomp="lt"
+    semver_ge "$ASDF_INSTALL_VERSION" 1.2.0 && config_vercomp="ge" || config_vercomp="lt"
+  else
+    install_vercomp="ge"
+    config_vercomp="lt"
   fi
 
   if [[ -n ${ASDF_POETRY_INSTALL_URL:-} ]]; then
     install_url=$ASDF_POETRY_INSTALL_URL
-  elif semver_ge "$ASDF_INSTALL_VERSION" 1.1.7; then
+  elif [ $install_vercomp == "ge" ]; then
     install_url="https://install.python-poetry.org"
   else
     install_url="https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py"
@@ -44,9 +48,15 @@ install_poetry() {
     flags=--no-modify-path
   fi
 
-  curl -sSL "$install_url" | POETRY_HOME=$install_path python3 - --version "$version" $flags
+  if [ "$install_type" = "version" ]; then
+    curl -sSL "$install_url" | POETRY_HOME=$install_path python3 - --version "$version" $flags
+  elif [ "$install_type" = "ref" ]; then
+    curl -sSL "$install_url" | POETRY_HOME=$install_path python3 - --git https://github.com/python-poetry/poetry.git@"$version" $flags
+  else
+    fail "unknown install type"
+  fi
 
-  if semver_ge "$ASDF_INSTALL_VERSION" 1.2.0; then
+  if [ $config_vercomp == "ge" ]; then
     # Ensure that poetry behaves as expected with asdf python (pyenv)
     echo Configuring poetry to behave properly with asdf ...
     echo Running: \"poetry config virtualenvs.prefer-active-python true\".
