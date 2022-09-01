@@ -13,7 +13,7 @@
 }
 
 @test "install works on version after 1.2" {
-  run asdf install poetry 1.2.0a1
+  run asdf install poetry 1.2.0
   [ "$status" -eq 0 ]
   echo "$output" | grep -v "This installer is deprecated"
 }

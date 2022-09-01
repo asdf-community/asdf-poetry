@@ -47,6 +47,18 @@ install_poetry() {
   fi
 
   curl -sSL "$install_url" | POETRY_HOME=$install_path python3 - --version "$version" $flags
+
+  if [ $vercomp == "ge" ]; then
+    # Ensure that poetry behaves as expected with asdf python (pyenv)
+    echo Configuring poetry to behave properly with asdf ...
+    echo Running: \"poetry config virtualenvs.prefer-active-python true\".
+    echo ""
+    "$install_path"/bin/poetry config virtualenvs.prefer-active-python true
+  else
+    echo Warning: Poetry versions prior to 1.2.0 may not work properly with asdf.
+    echo Consider upgrading to a later version.
+    echo https://github.com/asdf-community/asdf-poetry/issues/10
+  fi
 }
 
 install_poetry "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
