@@ -1,9 +1,8 @@
 #!/usr/bin/env bats
 
-@test "install command fails if the input is not version number" {
-  run asdf install poetry ref
-  [ "$status" -eq 1 ]
-  echo "$output" | grep "supports release installs only"
+@test "install command works for poetry git refs" {
+  run asdf install poetry ref:master
+  [ "$status" -eq 0 ]
 }
 
 @test "install works on version before 1.1.7" {
