@@ -53,7 +53,7 @@ install_poetry() {
     echo Configuring poetry to behave properly with asdf ...
     echo Running: \"poetry config virtualenvs.prefer-active-python true\".
     echo ""
-    $install_path/bin/poetry config virtualenvs.prefer-active-python true
+    "$install_path"/bin/poetry config virtualenvs.prefer-active-python true
   fi
 }
 
