@@ -65,9 +65,15 @@ install_poetry() {
 
   if [ $config_vercomp == "ge" ]; then
     if echo "$SHELL" | grep -q "bash"; then
-      echo "Detected default shell bash"
-      echo "Setting up autocompletion for bash..."
-      "$install_path"/bin/poetry completions bash >~/.bash_completion
+      if [ ! -f "$HOME/.bash_completion" ]; then
+        echo "Detected default shell bash"
+        echo "Setting up autocompletion for bash..."
+        "$install_path"/bin/poetry completions bash >~/.bash_completion
+      elif grep -q '_poetry_' ~/.bash_completion; then
+        echo "Detected default shell bash"
+        echo "Setting up autocompletion for bash..."
+        "$install_path"/bin/poetry completions bash >~/.bash_completion
+      fi
     elif echo "$SHELL" | grep -q "zsh"; then
       if [ ! -d "$HOME/.zfunc/" ]; then
         mkdir -p ~/.zfunc
@@ -80,9 +86,11 @@ install_poetry() {
       grep -qxF 'fpath+=~/.zfunc' ~/.zshrc || echo "fpath+=~/.zfunc" >>~/.zshrc
       grep -qxF 'autoload -Uz compinit && compinit' ~/.zshrc || echo "autoload -Uz compinit && compinit" >>~/.zshrc
     elif echo "$SHELL" | grep -q "fish"; then
-      echo "Detected default shell fish"
-      echo "Setting up autocompletion for fish..."
-      "$install_path"/bin/poetry completions fish >~/.config/fish/completions/poetry.fish
+      if [ ! -f "$HOME/.config/fish/completions/poetry.fish" ]; then
+        echo "Detected default shell fish"
+        echo "Setting up autocompletion for fish..."
+        "$install_path"/bin/poetry completions fish >~/.config/fish/completions/poetry.fish
+      fi
     else
       echo "Warning: Could not detect BASH, ZSH or FISH."
       echo "Could not complete autocompletion setup"
