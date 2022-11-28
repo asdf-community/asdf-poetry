@@ -66,12 +66,12 @@ install_poetry() {
   if [ $config_vercomp == "ge" ]; then
     if echo "$SHELL" | grep -q "bash"; then
       if [ ! -f "$HOME/.bash_completion" ]; then
-        echo "Detected default shell bash"
-        echo "Setting up autocompletion for bash..."
+        echo "Detected default shell Bash"
+        echo "Setting up autocompletion for Bash..."
         "$install_path"/bin/poetry completions bash >~/.bash_completion
       elif grep -q '_poetry_' ~/.bash_completion; then
-        echo "Detected default shell bash"
-        echo "Setting up autocompletion for bash..."
+        echo "Detected default shell Bash"
+        echo "Setting up autocompletion for Bash..."
         "$install_path"/bin/poetry completions bash >~/.bash_completion
       fi
     elif echo "$SHELL" | grep -q "zsh"; then
@@ -79,8 +79,8 @@ install_poetry() {
         mkdir -p ~/.zfunc
       fi
       if [ ! -f "$HOME/.zfunc/_poetry" ]; then
-        echo "Detected default shell zsh"
-        echo "Setting up autocompletion for zsh..."
+        echo "Detected default shell Zsh"
+        echo "Setting up autocompletion for Zsh..."
         "$install_path"/bin/poetry completions zsh >~/.zfunc/_poetry
       fi
       grep -qxF 'fpath+=~/.zfunc' ~/.zshrc || echo "fpath+=~/.zfunc" >>~/.zshrc
@@ -92,11 +92,11 @@ install_poetry() {
         "$install_path"/bin/poetry completions fish >~/.config/fish/completions/poetry.fish
       fi
     else
-      echo "Warning: Could not detect BASH, ZSH or FISH."
+      echo "Warning: Could not detect shells Bash, Zsh or fish."
       echo "Could not complete autocompletion setup"
     fi
   else
-    echo "Warning: Poetry versions prior to 1.2.0 will not have autocompletion"
+    echo "Warning: Poetry versions prior to 1.2.0 do not have autocompletion"
   fi
 }
 
