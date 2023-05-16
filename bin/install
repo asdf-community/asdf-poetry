@@ -31,12 +31,13 @@ install_poetry() {
     config_vercomp="lt"
   fi
 
-  if [[ -n ${ASDF_POETRY_INSTALL_URL:-} ]]; then
+  if [[ -n ${ASDF_POETRY_INSTALL_URL-} ]]; then
     install_url=$ASDF_POETRY_INSTALL_URL
-  elif [ $install_vercomp == "ge" ]; then
+  elif [ "$install_vercomp" == "ge" ]; then
     install_url="https://install.python-poetry.org"
   else
-    install_url="https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py"
+    # last committed get-poetry.py
+    install_url="https://raw.githubusercontent.com/python-poetry/poetry/d222411ae9d01a04ec8eda348a65aa83852c37d0/get-poetry.py"
   fi
 
   if [[ $install_url == *get-poetry* ]]; then
@@ -51,7 +52,7 @@ install_poetry() {
     fail "unknown install type"
   fi
 
-  if [ $config_vercomp == "ge" ]; then
+  if [ "$config_vercomp" == "ge" ]; then
     # Ensure that poetry behaves as expected with asdf python (pyenv)
     echo Configuring poetry to behave properly with asdf ...
     echo Running: \"poetry config virtualenvs.prefer-active-python true\".
