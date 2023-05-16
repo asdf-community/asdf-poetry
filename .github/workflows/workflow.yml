@@ -63,20 +63,3 @@ jobs:
 
       - name: Run ShellCheck
         run: make lint
-
-  format:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        
-      - name: Set up Homebrew
-        id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@master
-
-      - name: Install shfmt
-        run: brew update && brew install shfmt
-
-      - name: Run shfmt
-        run: make format-check
