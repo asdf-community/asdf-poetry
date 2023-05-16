@@ -79,4 +79,4 @@ jobs:
         run: brew update && brew install shfmt
 
       - name: Run shfmt
-        run: make fmt-check
+        run: make format-check
