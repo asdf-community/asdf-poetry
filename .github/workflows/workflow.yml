@@ -32,7 +32,7 @@ jobs:
 
       - name: Setup asdf
         uses: asdf-vm/actions/setup@v1
-        
+
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
@@ -42,7 +42,7 @@ jobs:
 
       - name: Test plugin
         run: |
-          asdf plugin-add poetry $GITHUB_WORKSPACE
+          asdf plugin-add poetry "$GITHUB_WORKSPACE"
           make test
         env:
           GITHUB_API_TOKEN: ${{ github.token }}
