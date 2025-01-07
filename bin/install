@@ -60,7 +60,7 @@ install_poetry() {
     if [ "$venv_vercomp" == "ge" ]; then
       echo Running: \"poetry config virtualenvs.use-poetry-python true\".
       echo ""
-      "$install_path"/bin/poetry config virtualenvs.use-poetry-python true
+      "$install_path"/bin/poetry config virtualenvs.use-poetry-python false
     else
       echo Running: \"poetry config virtualenvs.prefer-active-python true\".
       echo ""
