@@ -58,7 +58,7 @@ install_poetry() {
     # Ensure that poetry behaves as expected with asdf python (pyenv)
     echo Configuring poetry to behave properly with asdf ...
     if [ "$venv_vercomp" == "ge" ]; then
-      echo Running: \"poetry config virtualenvs.use-poetry-python true\".
+      echo Running: \"poetry config virtualenvs.use-poetry-python false\".
       echo ""
       "$install_path"/bin/poetry config virtualenvs.use-poetry-python false
     else
