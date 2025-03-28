@@ -10,6 +10,12 @@ manager
 ## Installation
 
 ```bash
+asdf plugin add poetry https://github.com/asdf-community/asdf-poetry.git
+```
+
+For pre-0.16.0 asdf versions:
+
+```bash
 asdf plugin-add poetry https://github.com/asdf-community/asdf-poetry.git
 ```
 
