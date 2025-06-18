@@ -26,7 +26,7 @@ install_poetry() {
   if [ "$install_type" == "version" ]; then
     semver_ge "$ASDF_INSTALL_VERSION" 1.1.7 && install_vercomp="ge" || install_vercomp="lt"
     semver_ge "$ASDF_INSTALL_VERSION" 1.2.0 && config_vercomp="ge" || config_vercomp="lt"
-    semver_ge "$ASDF_INSTALL_VERSION" 2.0.0 && venv_vercomp="ge" || venv_vercomp="lt"
+    semver_ge "$ASDF_INSTALL_VERSION" 2.0.0 && venv_vercomp="ge" || venv_vercomp="lt" #  Poetry 2.0.0 introduced a new virtualenv management system
   else
     install_vercomp="ge"
     config_vercomp="lt"
@@ -54,19 +54,19 @@ install_poetry() {
     fail "unknown install type"
   fi
 
-  if [ "$config_vercomp" == "ge" ]; then
+  if [ "$config_vercomp" == "ge" ]; then # Execute if Poetry version is >= 1.2.0
     # Ensure that poetry behaves as expected with asdf python (pyenv)
     echo Configuring poetry to behave properly with asdf ...
-    if [ "$venv_vercomp" == "ge" ]; then
-      echo Running: \"poetry config virtualenvs.use-poetry-python false\".
+    if semver_ge "$ASDF_INSTALL_VERSION" "2.0.0"; then
+      echo Running: \\"poetry config virtualenvs.use-poetry-python false\\".
       echo ""
       "$install_path"/bin/poetry config virtualenvs.use-poetry-python false
-    else
-      echo Running: \"poetry config virtualenvs.prefer-active-python true\".
+    else # Poetry version >= 1.2.0 and < 2.0.0
+      echo Running: \\"poetry config virtualenvs.prefer-active-python true\\".
       echo ""
       "$install_path"/bin/poetry config virtualenvs.prefer-active-python true
     fi
-  else
+  else # Poetry version < 1.2.0
     echo Warning: Poetry versions prior to 1.2.0 may not work properly with asdf.
     echo Consider upgrading to a later version.
     echo https://github.com/asdf-community/asdf-poetry/issues/10
