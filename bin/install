@@ -71,6 +71,42 @@ install_poetry() {
     echo Consider upgrading to a later version.
     echo https://github.com/asdf-community/asdf-poetry/issues/10
   fi
+
+  if [ $config_vercomp == "ge" ]; then
+    if echo "$SHELL" | grep -q "bash"; then
+      if [ ! -f "$HOME/.bash_completion" ]; then
+        echo "Detected default shell Bash"
+        echo "Setting up autocompletion for Bash..."
+        "$install_path"/bin/poetry completions bash >~/.bash_completion
+      elif grep -q '_poetry_' ~/.bash_completion; then
+        echo "Detected default shell Bash"
+        echo "Setting up autocompletion for Bash..."
+        "$install_path"/bin/poetry completions bash >~/.bash_completion
+      fi
+    elif echo "$SHELL" | grep -q "zsh"; then
+      if [ ! -d "$HOME/.zfunc/" ]; then
+        mkdir -p ~/.zfunc
+      fi
+      if [ ! -f "$HOME/.zfunc/_poetry" ]; then
+        echo "Detected default shell Zsh"
+        echo "Setting up autocompletion for Zsh..."
+        "$install_path"/bin/poetry completions zsh >~/.zfunc/_poetry
+      fi
+      grep -qxF 'fpath+=~/.zfunc' ~/.zshrc || echo "fpath+=~/.zfunc" >>~/.zshrc
+      grep -qxF 'autoload -Uz compinit && compinit' ~/.zshrc || echo "autoload -Uz compinit && compinit" >>~/.zshrc
+    elif echo "$SHELL" | grep -q "fish"; then
+      if [ ! -f "$HOME/.config/fish/completions/poetry.fish" ]; then
+        echo "Detected default shell fish"
+        echo "Setting up autocompletion for fish..."
+        "$install_path"/bin/poetry completions fish >~/.config/fish/completions/poetry.fish
+      fi
+    else
+      echo "Warning: Could not detect shells Bash, Zsh or fish."
+      echo "Could not complete autocompletion setup"
+    fi
+  else
+    echo "Warning: Poetry versions prior to 1.2.0 do not have autocompletion"
+  fi
 }
 
 install_poetry "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
